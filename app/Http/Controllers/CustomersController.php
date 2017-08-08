@@ -16,7 +16,7 @@ class CustomersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { //asadf
         //$cust = DB::table('customers')->select('id','firstname','lastname','credits','telephone','tel_prefix')->orderBy('id',  'asc')->get();
         #$customer = DB::table('customers')->selectRaw(' id, CONCAT_WS(\' \',firstname,lastname) as name , CONCAT( \'(\', tel_prefix, \') \',INSERT(telephone, 4, 0, \'-\')) as tel,FORMAT(credits, 2) as credits ')->orderBy('id',  'asc')->get();
         $customers = Customer::get();
