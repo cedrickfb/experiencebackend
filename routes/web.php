@@ -27,6 +27,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('events','EventsController');
     Route::resource('messages', 'MessagesController');
     Route::resource('products', 'ProductsController');
+    Route::resource('home', 'HomeController');
 });
 
 Route::get('/', function () {
