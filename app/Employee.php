@@ -13,5 +13,6 @@ class Employee extends Model
         'hire_date',
         'leaving_date',
         'SIN',
+        'remember_token'
     ];
 }
