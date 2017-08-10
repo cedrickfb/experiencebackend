@@ -10,13 +10,11 @@ class StatsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $startdate
-     * @param $endDate
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-       $dailySales = DB::table('bills_details')->join('bills' , 'bills_details.bill_id' , '=' , 'bills.id')
+      /* $dailySales = DB::table('bills_details')->join('bills' , 'bills_details.bill_id' , '=' , 'bills.id')
            ->join('products' , 'bills_details.products_id' , '=' , 'products.id')
            ->join('categories' , 'products.category_id' , '=' , 'categories.id')
            ->select('categories.name as category_name' ,
@@ -47,7 +45,27 @@ class StatsController extends Controller
         $total = $totSales - $totcredit;
         $totals = ['totSales' => $totSales, 'totCredits' => $totcredit, 'Total' => $total];
         $DailyReport = ['Sales' => $dailySales, 'Credits' => $creditsGiven , 'Totals' => $totals];
-        return response()->json($DailyReport);
+        return response()->json($DailyReport);*/ #Rapport detailler journalier
+
+       /* $inventaireNeuf = DB::table('products')
+            ->join('categories', 'products.category_id' , '=' , 'categories.id')
+            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant , SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
+            ->whereRaw('products.used = 0')
+            ->groupBy('products.category_id')->get();
+        $inventaireUsager = DB::table('products')
+            ->join('categories', 'products.category_id' , '=' , 'categories.id')
+            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant , SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
+            ->whereRaw('products.used = 1')
+            ->groupBy('products.category_id')->get();
+        $inventaireTotal = DB::table('products')
+            ->join('categories', 'products.category_id' , '=' , 'categories.id')
+            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant , SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
+            ->groupBy('products.category_id')->get();
+
+        $inventaire = ['Neuf' => $inventaireNeuf, 'Usager' => $inventaireUsager, 'Total' => $inventaireTotal];
+        return response()->json($inventaire);*/ #Stats valeur inventaire
+
+        return response()->json();
     }
 
     /**
