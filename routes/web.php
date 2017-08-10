@@ -31,6 +31,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('products', 'ProductsController');
     Route::resource('home', 'HomeController', ['middleware' => 'LoggedIn']);
     Route::resource('logout', 'LogOut');
+    Route::resource('stats', 'StatsController');
 });
 
 Route::get('/', function () {

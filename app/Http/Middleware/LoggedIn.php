@@ -17,8 +17,9 @@ class LoggedIn
      */
     public function handle($request, Closure $next)
     {
-       /* dd($request->session());
-        $request->session()->push('nouveau cookie numero 2','cookie 2');*/ #pour montrer comment sa marche
+       // $request->session()->push('nouveau cookie numero 2','cookie 2');
+        //dd($request->session());
+       // $request->session()->push('nouveau cookie numero 2','cookie 2'); #pour montrer comment sa marche
 
         /*declarer cette variable lorsque le programme boot
          et recuperer lorsque le front et le back-end se connectent enssemble
@@ -52,17 +53,17 @@ class LoggedIn
                dd($request->session('attributes')->get('_previous')['url']);
                 return $next($request->attributes()->get('_previous'));*/
            } else {
-               dd("asdf");
+               //dd("asdf");
                return redirect($request->session('attributes')->get('_previous')['url']);
            }
            dd($request->session()->has('test'));
            dd($request->session());
            return $next($request);
        }else {
-           //return redirect($loginurl);
+           return redirect($loginurl);
            return $next($request);
        }
-         $request->session()->push('nouveau cookie numero 1');
+         //$request->session()->push('nouveau cookie numero 1');
         return $next($request);
     }
 }
