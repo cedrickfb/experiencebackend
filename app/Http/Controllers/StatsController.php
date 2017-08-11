@@ -64,6 +64,34 @@ class StatsController extends Controller
 
         $inventaire = ['Neuf' => $inventaireNeuf, 'Usager' => $inventaireUsager, 'Total' => $inventaireTotal];
         return response()->json($inventaire);*/ #Stats valeur inventaire
+        /*
+        $clientid = 1; #remplacer par un parametre nullable
+        $venteClient = DB::table('bills')
+            ->join('customers' ,'bills.customers_id' , '=' , 'customers.id')
+            ->join('bills_details' , 'bills.id' ,'=' , 'bills_details.bill_id')
+            ->join('products' , 'bills_details.products_id' ,'=' , 'products.id')
+            ->join('categories' , 'products.category_id' ,'=' , 'categories.id')
+            ->selectRaw(' CONCAT_WS(\' \',customers.firstname,customers.lastname) as custName , bills.created_at as DateAchat, bills.id as numFacture, bills_details.products_id as numProduct ,
+             categories.name as catName, products.name as prodName , bills_details.qty as Qty , SUM(products.selling_price - bills_details.discount) as montant , 
+             SUM(bills_details.qty *(products.selling_price - bills_details.discount)) as Total ')
+            ->groupBy('bills_details.id')
+            ->whereRaw('customers.id = ' . $clientid . ' and bills.type = F')
+            ->get();
+
+        $creditClient = DB::table('bills')
+            ->join('customers' ,'bills.customers_id' , '=' , 'customers.id')
+            ->join('bills_details' , 'bills.id' ,'=' , 'bills_details.bill_id')
+            ->join('products' , 'bills_details.products_id' ,'=' , 'products.id')
+            ->join('categories' , 'products.category_id' ,'=' , 'categories.id')
+            ->selectRaw(' CONCAT_WS(\' \',customers.firstname,customers.lastname) as custName , bills.created_at as DateAchat, bills.id as numFacture, bills_details.products_id as numProduct ,
+             categories.name as catName, products.name as prodName , bills_details.qty as Qty , SUM(products.selling_price - bills_details.discount) as montant , 
+             SUM(bills_details.qty *(products.selling_price - bills_details.discount)) as Total ')
+            ->groupBy('bills_details.id')
+            ->whereRaw('customers.id = ' . $clientid . ' and bills.type = CR')
+            ->get();
+
+        return response()->json($venteClient);
+          */
 
         return response()->json();
     }
@@ -72,7 +100,7 @@ class StatsController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ #Stats achat/credits par client
     public function create()
     {
         //
