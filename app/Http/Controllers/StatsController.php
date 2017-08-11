@@ -45,7 +45,7 @@ class StatsController extends Controller
         $total = $totSales - $totcredit;
         $totals = ['totSales' => $totSales, 'totCredits' => $totcredit, 'Total' => $total];
         $DailyReport = ['Sales' => $dailySales, 'Credits' => $creditsGiven , 'Totals' => $totals];
-        return response()->json($DailyReport);*/ #Rapport detailler journalier
+        return response()->json($DailyReport);*/ #Rapport detailler journalier sur excel
 
        /* $inventaireNeuf = DB::table('products')
             ->join('categories', 'products.category_id' , '=' , 'categories.id')
@@ -91,7 +91,32 @@ class StatsController extends Controller
             ->get();
 
         return response()->json($venteClient);
-          */
+          */ #Rapport achat d'un client
+
+       /* $dailyReportVentes = DB::table('bills')
+            ->selectRaw('taxable , tps, tvq, total, non_taxable , SUM(total + non_taxable) as grand_total')
+            ->whereRaw('type = F and created_at between  ' . $datedebut . ' and ' . $datefin)
+            ->groupBy('id')->get();
+
+        $dailyReportCredits = DB::table('bills')
+            ->selectRaw('taxable , tps, tvq, total, non_taxable , SUM(total + non_taxable) as grand_total')
+            ->whereRaw('type = CR and created_at between  ' . $datedebut . ' and ' . $datefin)
+            ->groupBy('id')->get();
+
+        $dailyreports = ['Ventes' => $dailyReportVentes, 'Credits' => $dailyReportCredits ];
+        return response()->json($dailyreports);*/ #Rapport sur les ventes journaliers pas sur excel
+        /*
+        $customerId = 1; #remplacer par un parametre nullable
+        $CreditClient = DB::table('customers')
+            ->join('trades' , 'customers.id' , '=' , 'trades.customers_id')
+            ->selectRaw('CONCAT_WS(\' \',customers.firstname,customers.lastname) as custName , trades.id,
+             trades.description, trades.amount, trades.created_at, customers.credits')
+            ->whereRaw('customers.id = ' . $customerId)
+            ->groupBy('trades.id')
+            ->get();
+            */ #Rapport sur les credits d'un client (p-t rajouter l'employer qui as approuver)
+
+
 
         return response()->json();
     }
