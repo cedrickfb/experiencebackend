@@ -2,30 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EditProductRequest;
-use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 
-class ProductsController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($num)
     {
-
-        $cat = Input::get('cat');
-        if(!isset($cat)){
-            $product = Product::with('category')->get();
-            return response()->json($product);
-        }else{
-            $product = Product::with('category')->whereRaw('category_id = ' . $cat)->get();
-            return response()->json($product);
-        }
 
     }
 
@@ -42,13 +30,12 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EditProductRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EditProductRequest $request)
+    public function store(Request $request)
     {
-        $product = new Product($request->all());
-        $product->save();
+        //
     }
 
     /**
@@ -59,11 +46,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->first();
-
-
-        return response()->json($product);
-
+        $customer = DB::table('customers')->selectRaw('telephone , CONCAT_WS(\' \',firstname,lastname) as name , id , tel_prefix')->whereRaw('telephone like \'' . $id . '%\'' )->get();
+        return response()->json($customer);
     }
 
     /**
@@ -74,23 +58,19 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('category')->findOrFail($id);
-        return response()->json($product);
-    }
 
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  EditProductRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-        $product->update($request->all());
-        return response()->json(["success" => true]);
+        //
     }
 
     /**

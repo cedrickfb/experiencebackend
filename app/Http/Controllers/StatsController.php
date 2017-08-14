@@ -47,7 +47,7 @@ class StatsController extends Controller
         $DailyReport = ['Sales' => $dailySales, 'Credits' => $creditsGiven , 'Totals' => $totals];
         return response()->json($DailyReport);*/ #Rapport detailler journalier sur excel
 
-       /* $inventaireNeuf = DB::table('products')
+        $inventaireNeuf = DB::table('products')
             ->join('categories', 'products.category_id' , '=' , 'categories.id')
             ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant , SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
             ->whereRaw('products.used = 0')
@@ -62,8 +62,8 @@ class StatsController extends Controller
             ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant , SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
             ->groupBy('products.category_id')->get();
 
-        $inventaire = ['Neuf' => $inventaireNeuf, 'Usager' => $inventaireUsager, 'Total' => $inventaireTotal];
-        return response()->json($inventaire);*/ #Stats valeur inventaire
+        //$inventaire = ['Neuf' => $inventaireNeuf, 'Usager' => $inventaireUsager, 'Total' => $inventaireTotal];
+        return response()->json($inventaireNeuf); #Stats valeur inventaire
         /*
         $clientid = 1; #remplacer par un parametre nullable
         $venteClient = DB::table('bills')
@@ -117,8 +117,7 @@ class StatsController extends Controller
             */ #Rapport sur les credits d'un client (p-t rajouter l'employer qui as approuver)
 
 
-
-        return response()->json();
+        //return response()->json();
     }
 
     /**

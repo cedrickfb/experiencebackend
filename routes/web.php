@@ -12,7 +12,7 @@
 |, 'middleware' => 'LoggedIn'
 */
 Route::group(['prefix' => 'api' ], function() {
-    Route::resource('login','LoginController');
+    //Route::resource('login','LoginController');
     Route::resource('customers','CustomersController');
     Route::resource('employees','EmployeesController');
     Route::resource('settings','SettingsController');
@@ -32,6 +32,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('home', 'HomeController', ['middleware' => 'LoggedIn']);
     Route::resource('logout', 'LogOut');
     Route::resource('stats', 'StatsController');
+    Route::resource('sales' , 'SalesController');
 });
 
 Route::get('/', function () {
