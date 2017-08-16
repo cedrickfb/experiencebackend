@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Employee;
+use Closure;
+use Illuminate\Support\Facades\Session;
 
-class SalesController extends Controller
+use Illuminate\Http\Request;
+
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($num)
+    public function index()
     {
 
     }
@@ -41,14 +44,31 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        $customer = DB::table('customers')->selectRaw('telephone , CONCAT_WS(\' \',firstname,lastname) as name , id , tel_prefix')->whereRaw('telephone like \'' . $id . '%\'' )
-            ->get();
-        return response()->json($customer);
+        $try = Employee::whereNotNull('remember_token')->first();
+        //dd($try);
+        if($try <> null){
+            $rep['state'] = false;
+            $rep['message'] = "Un utilisateur est deja connecter";
+        }else{
+            $emp = Employee::whereRaw('password = ' . $id)->first();
+            if($emp == null){
+                $rep['state'] = false;
+                $rep['message'] = "Mauvais mot de passe, veuillez reessayer.";
+            }else{
+                $token = session()->get('_token');
+                $emp->remember_token = $token;
+                $emp->save();
+                $rep['state'] = true;
+                $rep['message'] = "Connexion reussis";
+            }
+        }
+        return response()->json($rep);
     }
 
     /**
@@ -59,7 +79,7 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('logout', 'LogOut');
     Route::resource('stats', 'StatsController');
     Route::resource('sales' , 'SalesController');
+    Route::resource('login' , 'LoginController');
 });
 
 Route::get('/', function () {
