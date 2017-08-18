@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('events','EventsController');
     Route::resource('messages', 'MessagesController');
     Route::resource('products', 'ProductsController');
-    Route::resource('home', 'HomeController', ['middleware' => 'LoggedIn']);
+    Route::resource('home', 'HomeController');
     Route::resource('logout', 'LogOut');
     Route::resource('stats', 'StatsController');
     Route::resource('sales' , 'SalesController');

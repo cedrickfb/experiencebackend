@@ -22,6 +22,9 @@ class HomeController extends Controller
         $cash = DB::table('bills')->select(DB::raw('sum(total - taxable) AS montant'))->whereRaw('created_at = "' .Carbon::today()->toDateString() . '"')->get();
         $tre = (array)$cash[0];
         $cashmade = array_pop($tre);
+        if($cashmade == null){
+            $cashmade = 0;
+        }
         $test = ['newCustomers' => $customer, 'NumberTransaction' => $sales, 'CashMade' => $cashmade];
         return response()->json($test);
     }

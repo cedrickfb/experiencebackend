@@ -38,8 +38,9 @@ class SettingsController extends Controller
      */
     public function store(EditSettingsRequest $request)
     {
-        $setting = new Setting($request->all());
-        Setting::save($setting);
+        dd($request->all());
+        $setting = new Setting();
+        $setting->save($setting);
         return response()->json(["succes" => true]);
     }
 

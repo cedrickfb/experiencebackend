@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Setting;
 use Closure;
 use Illuminate\Support\Facades\Session;
 
@@ -17,7 +18,12 @@ class LoginController extends Controller
      */
     public function index()
     {
-
+        $try = Employee::whereNotNull('remember_token')->first();
+        if($try <> null ){
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
     }
 
     /**
@@ -27,7 +33,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -50,25 +56,28 @@ class LoginController extends Controller
      */
     public function show($id,Request $request)
     {
+
         $try = Employee::whereNotNull('remember_token')->first();
         //dd($try);
         if($try <> null){
-            $rep['state'] = false;
-            $rep['message'] = "Un utilisateur est deja connecter";
+            $rep = false;
+            //$rep['message'] = "Un utilisateur est deja connecter";
         }else{
-            $emp = Employee::whereRaw('password = ' . $id)->first();
+            $emp = Employee::whereRaw('password = \'' . $id . '\'')->first();
             if($emp == null){
-                $rep['state'] = false;
-                $rep['message'] = "Mauvais mot de passe, veuillez reessayer.";
+                $rep = false;
+              //  $rep['message'] = "Mauvais mot de passe, veuillez reessayer.";
             }else{
                 $token = session()->get('_token');
                 $emp->remember_token = $token;
                 $emp->save();
-                $rep['state'] = true;
-                $rep['message'] = "Connexion reussis";
+                $rep = true;
+                $settings = Setting::whereRaw('active = 1')->get();
+
+               // $rep['message'] = "Connexion reussis";
             }
         }
-        return response()->json($rep);
+        return response()->json(compact('rep',$rep,'emp',$emp,'settings',$settings));
     }
 
     /**
