@@ -18,7 +18,6 @@ class LoggedIn
     public function handle($request, Closure $next)
     {
         $loginurl = "login";
-
        if($request->session()->has('userlogged')) {
            $employee = $request->session()->get('userlogged');
            dd($employee);
