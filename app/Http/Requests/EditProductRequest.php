@@ -24,8 +24,8 @@ class EditProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'codebar' => 'required|max:191',
-            'name' => 'required|max:191',
+            'codebar' => 'required|max:191|unique:products',
+            'name' => 'required|max:191|unique:products',
             'original_cost' => 'required|numeric|min:0|max:999999999999999999',
             'selling_price' => 'required|numeric|min:0|max:999999999999999999',
             'min_qty' => 'required|numeric|min:0|max:9999999999',

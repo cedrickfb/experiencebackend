@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 
 use App\Category;
+use App\Events\NewNotifEvent;
 use App\Notification;
 /*
 use Illuminate\Database\Eloquent;
@@ -47,6 +48,8 @@ class NotifyQuantity
                    'created_at' => Carbon::now(),
                    'updated_at' => Carbon::now()]);
                $notif->save();
+               $event = NewNotifEvent();
+               event($event);
             }else{
                 if($event->product['qty'] >= $event->product['max_qty']){
                     $parent = Category::select('name')->whereRaw('id = ' . $event->product['category_id'])->get();
@@ -59,6 +62,8 @@ class NotifyQuantity
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()]);
                     $notif->save();
+                    $event = NewNotifEvent();
+                    event($event);
                 }
             }
         }

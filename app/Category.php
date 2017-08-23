@@ -27,7 +27,7 @@ class Category extends Model
     }*/
 
     public function getParentIdAttribute (){
-        if(\Request::path() === "api/categories"){
+        //if(\Request::path() === "api/categories"){
 
             $parent = Category::select('name')->whereRaw('id = ' .$this->attributes['parent_id'])->get();
             if(sizeof($parent) >0){
@@ -37,9 +37,9 @@ class Category extends Model
             }else{
                 return "N/A";
             }
-        }else{
-            return $this->attributes['parent_id'];
+       // }else{
+         //   return $this->attributes['parent_id'];
 
-        }
+       // }
     }
 }
