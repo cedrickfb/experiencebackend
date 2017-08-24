@@ -31,6 +31,6 @@ class NewNotifEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('notif-channel');
+        return new Channel('notifChannel');
     }
 }

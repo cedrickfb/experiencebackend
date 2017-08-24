@@ -54,7 +54,9 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = DB::table('customers')->selectRaw('telephone , CONCAT_WS(\' \',firstname,lastname) as name , id , tel_prefix')->whereRaw('telephone like \'' . $id . '%\'' )
+            ->get();
+        return response()->json($customer);
     }
 
     /**

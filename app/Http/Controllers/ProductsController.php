@@ -88,8 +88,12 @@ class ProductsController extends Controller
      */
     public function update(EditProductRequest $request, $id)
     {
+
+
         $product = Product::findOrFail($id);
+
         $product->update($request->all());
+
         return response()->json(["success" => true]);
     }
 

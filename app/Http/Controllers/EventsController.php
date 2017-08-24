@@ -39,7 +39,6 @@ class EventsController extends Controller
     public function store(EditEventRequest $request)
     {
         $event = new Event();
-        $event['color'] = $request->input('color');
         $event['title'] = $request->input('title');
         $event->timestamps = false;
         $event->save();

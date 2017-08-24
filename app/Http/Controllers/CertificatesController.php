@@ -16,7 +16,12 @@ class CertificatesController extends Controller
      */
     public function index()
     {
-        $cert = Certificate::limit(20)->get();
+        $cert = DB::table('certificates')
+            ->join('customers' , 'certificates.customers_id' , '=' , 'customers.id')
+            ->join('employees' , 'employees.id' , '=' , 'certificates.employees_id')
+            ->selectRaw('certificates.* , CONCAT_WS(\' \',customers.firstname,customers.lastname) as CustName ,
+            CONCAT_WS(\' \',employees.firstname,employees.lastname) as EmpName')
+            ->get();
         return response()->json($cert);
     }
 
@@ -39,7 +44,7 @@ class CertificatesController extends Controller
     public function store(EditCertificateRequest $request)
     {
         $certificate = new Certificate($request->all());
-        DB::table('certificates')->save($certificate);
+       $certificate->save();
         return response()->json(["succes" => true]);
     }
 
@@ -62,7 +67,7 @@ class CertificatesController extends Controller
      */
     public function edit($id)
     {
-        $cert = Certificate::findOrFail($id)->first();
+        $cert = Certificate::findOrFail($id);
         return response()->json($cert);
     }
 
