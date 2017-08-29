@@ -16,7 +16,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $setting = Setting::get()->first();
+        $setting = DB::table('settings')->where('active', '1')->first();
         return response()->json($setting);
     }
 
@@ -40,6 +40,9 @@ class SettingsController extends Controller
     {
         dd($request->all());
         $setting = new Setting();
+        if($setting['active'] == 1){
+            Setting::where('active' , '=' , '1')->update(['active' => 0]);
+        }
         $setting->save($setting);
         return response()->json(["succes" => true]);
     }
@@ -77,8 +80,16 @@ class SettingsController extends Controller
     public function update(EditSettingsRequest $request, $id)
     {
         $setting = Setting::findOrFail($id);
+        if($setting->active == 1){
+            Setting::where('active' , '=' , '1' )->update(['active' => 0]);
+        }
         $setting->update($request->all());
         return response()->json(["success" => true]);
+    }
+
+    public function get_current() {
+        $active = DB::table('settings')->where('active', 1)->first();
+        return response()->json([$active]);
     }
 
     /**

@@ -31,8 +31,8 @@ class EditCustomerRequest extends FormRequest
             /*'address' => 'required',
             'city' => 'required',
             'province' => 'required',
-            'country' => 'required',
-            'postal_code' => 'required|min:6|max:6',*/
+            'country' => 'required',*/
+            'postal_code' => 'required|min:6|max:6|zipCode',
             'comments' => 'max:500',
             'password' => 'required|max:25',
             'credits' => 'required',

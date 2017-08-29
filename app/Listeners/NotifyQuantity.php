@@ -50,7 +50,8 @@ class NotifyQuantity
                         . $event->product['name'] . ' , et le minumum est : '.  $event->product['min_qty'],
                     'viewed' => false,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()]);
+                    'updated_at' => Carbon::now(),
+                    'product_id' => $event->product['id']]);
 
                 $notif->save();
                 event(new NewNotifEvent());
@@ -64,7 +65,8 @@ class NotifyQuantity
                             . $event->product['name'] . ' , et le maximum est : '.  $event->product['max_qty'],
                         'viewed' => false,
                         'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()]);
+                        'updated_at' => Carbon::now(),
+                        'product_id' => $event->product['id']]);
                     $notif->save();
                     event(new NewNotifEvent());
 

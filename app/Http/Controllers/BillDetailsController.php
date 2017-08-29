@@ -14,7 +14,7 @@ class BillDetailsController extends Controller
      */
     public function index()
     {
-        $billDetail = DB::table('bills_details')->limit(20)->get();
+        $billDetail = DB::table('bills_details')->get();
         return response()->json($billDetail);
     }
 
@@ -47,7 +47,12 @@ class BillDetailsController extends Controller
      */
     public function show($id)
     {
-        //
+        $bill = DB::table('bills_details')->whereRaw('bill_id = ' . $id)
+            ->join('products' , 'bills_details.products_id' , '=' , 'products.id')
+        ->selectRaw('bills_details.id, bills_details.qty , bills_details.bill_id , bills_details.bonidollar
+         , products.name as ProductName ')
+        ->get();
+        return response()->json($bill);
     }
 
     /**

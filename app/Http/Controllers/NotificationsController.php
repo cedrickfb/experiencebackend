@@ -15,7 +15,7 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        $notif = Notification::limit(20)->get();
+        $notif = Notification::get();
         return response()->json($notif);
     }
 
@@ -87,6 +87,13 @@ class NotificationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       Notification::destroy($id);
+        return response()->json(["success" => true]);
+
+    }
+
+    public function truncate()
+    {
+        DB::table('notifications')->truncate();
     }
 }

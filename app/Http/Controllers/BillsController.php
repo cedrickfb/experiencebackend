@@ -14,7 +14,13 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $billDetail = DB::table('bills')->limit(20)->get();
+        $billDetail = DB::table('bills')
+            ->join('customers' , 'customers.id' , '=' , 'bills.customers_id')
+            ->join('employees' , 'employees.id' , '=' , 'bills.employees_id')
+            ->join('settings' , 'settings.id' , '=' , 'bills.company_id')
+            ->selectRaw('bills.* ,  CONCAT_WS(\' \',customers.firstname,customers.lastname) as CustName ,
+            CONCAT_WS(\' \',employees.firstname,employees.lastname) as EmpName')
+            ->get();
         return response()->json($billDetail);
     }
 

@@ -16,7 +16,7 @@ class TradesController extends Controller
      */
     public function index()
     {
-        $trade = Trade::limit(20)->get();
+        $trade = Trade::get();
         return response()->json($trade);
     }
 

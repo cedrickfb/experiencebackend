@@ -59,10 +59,15 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->first();
+
+        if(Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->exists()){
+            $product = Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->first();
+            return response()->json($product);
+        }else{
+            return response()->json(false);
+        }
 
 
-        return response()->json($product);
 
     }
 

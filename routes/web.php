@@ -11,6 +11,7 @@
 
 |, 'middleware' => 'LoggedIn'
 */
+Route::get('/api/settings/get_current', 'SettingsController@get_current');
 Route::group(['prefix' => 'api' ], function() {
     //Route::resource('login','LoginController');
     Route::resource('customers','CustomersController');
@@ -34,6 +35,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('stats', 'StatsController');
     Route::resource('sales' , 'SalesController');
     Route::resource('login' , 'LoginController');
+    Route::post('notifications/truncate' , 'NotificationsController@truncate');
 });
 
 Route::get('/', function () {

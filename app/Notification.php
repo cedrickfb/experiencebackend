@@ -11,6 +11,7 @@ class Notification extends Model
         'text',
         'viewed',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'product_id'
     ];
 }

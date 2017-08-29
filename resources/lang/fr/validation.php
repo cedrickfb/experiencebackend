@@ -84,10 +84,12 @@ return [
     ],
     'string'               => 'Le champ :attribute doit être une chaîne de caractères.',
     'timezone'             => 'Le champ :attribute doit être un fuseau horaire valide.',
-    'unique'               => 'La valeur du champ :attribute est déjà utilisée.',
+    'unique'               => 'La valeur du champ :attribute doit être unique.',
     'uploaded'             => "Le fichier du champ :attribute n'a pu être téléchargé.",
     'url'                  => "Le format de l'URL de :attribute n'est pas valide.",
     'anyname'              => "Le champ :attribute accepte seulement les lettres, tirets et espaces.",
+    'unique_exclude_me'    => "Le champ :attribute doit être unique.",
+    'zip_code'             => "Le champ :attribute est invalilde.",
 
     /*
     |--------------------------------------------------------------------------
@@ -160,6 +162,8 @@ return [
         'original_cost'         => 'prix coutant',
         'amount'                => 'montant',
         'parent_id'             => 'catégorie parente',
+        'codebar'               => 'Codebar',
+        'postal_code'           => 'Code Postal'
     ],
 
 ];
