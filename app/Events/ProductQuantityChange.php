@@ -24,7 +24,6 @@ class ProductQuantityChange
      */
     public function __construct(Product $product)
     {
-
         $this->product = $product;
     }
 

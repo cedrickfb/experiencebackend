@@ -59,16 +59,12 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-
         if(Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->exists()){
             $product = Product::with('category')->whereRaw('codebar = \'' . $id . '\'')->first();
             return response()->json($product);
         }else{
             return response()->json(false);
         }
-
-
-
     }
 
     /**
@@ -93,12 +89,8 @@ class ProductsController extends Controller
      */
     public function update(EditProductRequest $request, $id)
     {
-
-
         $product = Product::findOrFail($id);
-
         $product->update($request->all());
-
         return response()->json(["success" => true]);
     }
 

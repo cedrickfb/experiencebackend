@@ -23,6 +23,7 @@ class EditCustomerRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'firstname' => 'required|max:50|anyname',
             'lastname' => 'required|max:50|anyname',

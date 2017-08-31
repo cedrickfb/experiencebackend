@@ -18,7 +18,11 @@ class CustomersController extends Controller
     public function index()
     { //asadf
        // $cust = DB::table('customers')->selectRaw('id , firstname, lastname ,telephone ,tel_prefix, CONCAT( \'(\', tel_prefix, \') \',INSERT(telephone, 4, 0, \'-\')) as tel')->limit(10)->get();
-        $customer = DB::table('customers')->selectRaw(' id, CONCAT_WS(\' \',firstname,lastname) as name , CONCAT( \'(\', tel_prefix, \') \',INSERT(telephone, 4, 0, \'-\')) as tel,FORMAT(credits, 2) as credits ')->orderBy('id')->get();
+        $customer = DB::table('customers')->selectRaw(' id,
+         CONCAT_WS(\' \',firstname,lastname) as name , 
+         CONCAT( \'(\', tel_prefix, \') \',
+         INSERT(telephone, 4, 0, \'-\')) as tel,
+         FORMAT(credits, 2) as credits ')->orderBy('id')->get();
         //$customers = Customer::get();
        return response()->json($customer);
     }
@@ -54,7 +58,8 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        $customer = DB::table('customers')->selectRaw('telephone , CONCAT_WS(\' \',firstname,lastname) as name , id , tel_prefix')->whereRaw('telephone like \'' . $id . '%\'' )
+        $customer = DB::table('customers')->selectRaw('telephone , 
+        CONCAT_WS(\' \',firstname,lastname) as name , id , tel_prefix')->whereRaw('telephone like \'' . $id . '%\'' )
             ->get();
         return response()->json($customer);
     }

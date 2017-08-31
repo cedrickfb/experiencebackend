@@ -17,7 +17,6 @@ class CategoriesController extends Controller
     public function index()
     {
         $category = Category::get();
-
         return response()->json($category);
     }
 

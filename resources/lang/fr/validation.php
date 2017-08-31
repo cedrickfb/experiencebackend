@@ -89,7 +89,7 @@ return [
     'url'                  => "Le format de l'URL de :attribute n'est pas valide.",
     'anyname'              => "Le champ :attribute accepte seulement les lettres, tirets et espaces.",
     'unique_exclude_me'    => "Le champ :attribute doit être unique.",
-    'zip_code'             => "Le champ :attribute est invalilde.",
+    'zip_code'             => "Le champ :attribute est invalide.",
 
     /*
     |--------------------------------------------------------------------------
@@ -162,8 +162,8 @@ return [
         'original_cost'         => 'prix coutant',
         'amount'                => 'montant',
         'parent_id'             => 'catégorie parente',
-        'codebar'               => 'Codebar',
-        'postal_code'           => 'Code Postal'
+        'codebar'               => 'code-barres',
+        'postal_code'           => 'code postal'
     ],
 
 ];

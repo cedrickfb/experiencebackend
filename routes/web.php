@@ -13,7 +13,6 @@
 */
 Route::get('/api/settings/get_current', 'SettingsController@get_current');
 Route::group(['prefix' => 'api' ], function() {
-    //Route::resource('login','LoginController');
     Route::resource('customers','CustomersController');
     Route::resource('employees','EmployeesController');
     Route::resource('settings','SettingsController');
