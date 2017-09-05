@@ -38,7 +38,9 @@ class EmployeesController extends Controller
      */
     public function store(EditEmployeeRequest $request)
     {
+        dd($request->all());
         $emp = new Employee($request->all());
+
         $emp->save();
         return response()->json(["succes" => true]);
     }

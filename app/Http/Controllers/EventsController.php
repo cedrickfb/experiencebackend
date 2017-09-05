@@ -38,8 +38,10 @@ class EventsController extends Controller
      */
     public function store(EditEventRequest $request)
     {
-        $event = new Event($request->all());
-        DB::table('events')->save($event);
+        $event = new Event();
+        $event['title'] = $request->input('title');
+        $event->timestamps = false;
+        $event->save();
         return response()->json(["succes" => true]);
     }
 
@@ -88,6 +90,8 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Event::destroy($id);
+
     }
 }

@@ -17,9 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $customer = Customer::whereRaw('created_at = "' .Carbon::today()->toDateString() . '"' )->count();
-        $sales = Bill::whereRaw('created_at = "' .Carbon::today()->toDateString() . '"' )->count();
-        $cash = DB::table('bills')->select(DB::raw('sum(total - taxable) AS montant'))->whereRaw('created_at = "' .Carbon::today()->toDateString() . '"')->get();
+        $customer = Customer::whereRaw('created_at between "' . Carbon::yesterday()->toDateString() . '" and  "' . Carbon::tomorrow()->toDateString() . '"' )->count();
+        $sales = Bill::whereRaw('created_at between "'. Carbon::yesterday()->toDateString() . '" and  "' . Carbon::tomorrow()->toDateString() . '"'  )->count();
+        $cash = DB::table('bills')->select(DB::raw('sum(total) AS montant'))->whereRaw('created_at between "' . Carbon::yesterday()->toDateString() . '" and  "' . Carbon::tomorrow()->toDateString() . '"' )->get();
         $tre = (array)$cash[0];
         $cashmade = array_pop($tre);
         if($cashmade == null){

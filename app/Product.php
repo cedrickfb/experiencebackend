@@ -19,7 +19,9 @@ class Product extends Model
         'allow_notif',
         'qty' ,
         'category_id' ,
-        'bonidollar'
+        'bonidollar',
+        'tps',
+        'tvq',
     ];
     public function category(){
         return $this->belongsTo('App\Category');

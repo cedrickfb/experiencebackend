@@ -15,31 +15,22 @@ class Category extends Model
         'parent_id'
     ];
 
-
-
     public function products()
     {
         return $this->hasMany('App\Product');
     }
 
-   /* public function getNameAttribute (){
-        return ucfirst($this->attributes['name']);
-    }*/
-
     public function getParentIdAttribute (){
         if(\Request::path() === "api/categories"){
-
             $parent = Category::select('name')->whereRaw('id = ' .$this->attributes['parent_id'])->get();
             if(sizeof($parent) >0){
-            $this->attributes['parent_id'] = $parent[0]->attributes['name'];
-
-            return $this->attributes['parent_id'];
+                $this->attributes['parent_id'] = $parent[0]->attributes['name'];
+                return $this->attributes['parent_id'];
             }else{
-                return "N/A";
+                return "Aucune";
             }
         }else{
             return $this->attributes['parent_id'];
-
         }
     }
 }

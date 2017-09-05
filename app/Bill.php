@@ -14,6 +14,7 @@ class Bill extends Model
         'taxable',
         'non_taxable',
         'bonidollars',
+        'consigne',
         'customers_id',
         'employees_id',
         'company_id',

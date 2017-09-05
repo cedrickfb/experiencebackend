@@ -15,7 +15,9 @@ class CalendarController extends Controller
      */
     public function index()
     {
-        $event = Calendar::get();
+        $event = DB::table('calendar')
+            ->join('events' , 'calendar.events_id' , '=' , 'events.id')
+            ->get();
         return response()->json($event);
     }
 

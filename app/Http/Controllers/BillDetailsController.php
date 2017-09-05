@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BillDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,8 @@ class BillDetailsController extends Controller
      */
     public function index()
     {
-        $billDetail = DB::table('bills_details')->limit(20)->get();
+       // $billDetail = DB::table('bills_details')->get();
+        $billDetail = BillDetail::get();
         return response()->json($billDetail);
     }
 
@@ -36,7 +38,9 @@ class BillDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bill = new BillDetail($request->all());
+        $bill->save();
+        return response()->json(["success" => true]);
     }
 
     /**
@@ -47,7 +51,16 @@ class BillDetailsController extends Controller
      */
     public function show($id)
     {
-        //
+        /*$bill = DB::table('bills_details')->whereRaw('bill_id = ' . $id)
+            ->join('products' , 'bills_details.products_id' , '=' , 'products.id')
+        ->selectRaw('bills_details.id, bills_details.qty , bills_details.bill_id , bills_details.bonidollar
+         , products.name as ProductName ')
+        ->get();*/
+        $bill = DB::table('bills_details')->whereRaw('bill_id = ' . $id)
+            ->join('products' , 'bills_details.products_id' , '=' , 'products.id')
+            ->selectRaw('bills_details.*,bills_details.qty as qty_facture , bills_details.bonidollar as product_boni, products.*')
+            ->get();
+        return response()->json($bill);
     }
 
     /**
@@ -58,7 +71,8 @@ class BillDetailsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bill = BillDetail::findOrFail($id);
+        return response()->json($bill);
     }
 
     /**

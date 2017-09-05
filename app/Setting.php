@@ -21,5 +21,7 @@ class Setting extends Model
         'email',
         'active',
         'bonidollar',
+        'tps',
+        'tvq',
     ];
 }
