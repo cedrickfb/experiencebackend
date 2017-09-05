@@ -92,6 +92,12 @@ class SettingsController extends Controller
 
     public function get_current() {
         $active = DB::table('settings')->where('active', 1)->first();
+        $emp = DB::table('employees')->whereRaw('remember_token IS NOT NULL ')->get();
+
+
+        $active->empName = $emp[0]->firstname ;
+        $active->empId = $emp[0]->id;
+
         return response()->json([$active]);
     }
 

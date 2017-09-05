@@ -25,6 +25,7 @@ class EditSettingsRequest extends FormRequest
     {
         return [
             'company_name' => 'required|max:100',
+            'show_name' => 'required|max:20',
             'no_tps' => 'required|max:50',
             'no_tvq' => 'required|max:50',
             'address' => 'required|max:100',

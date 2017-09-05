@@ -23,5 +23,6 @@ class Setting extends Model
         'bonidollar',
         'tps',
         'tvq',
+        'show_name'
     ];
 }

@@ -15,9 +15,10 @@ class BillDetailsController extends Controller
      */
     public function index()
     {
+
        // $billDetail = DB::table('bills_details')->get();
-        $billDetail = BillDetail::get();
-        return response()->json($billDetail);
+        //$billDetail = BillDetail::get();
+        //return response()->json($billDetail);
     }
 
     /**

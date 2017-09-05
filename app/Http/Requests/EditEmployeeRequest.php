@@ -24,7 +24,7 @@ class EditEmployeeRequest extends FormRequest
     public function rules()
     {
         $prod = $this->request;
-        dd($prod);
+       //dd($prod);
         return [
             'firstname' => 'required|max:50|anyname',
             'lastname' => 'required|max:50|anyname',

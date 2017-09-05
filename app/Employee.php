@@ -12,7 +12,7 @@ class Employee extends Model
         'password',
         'hire_date',
         'leaving_date',
-        'SIN',
         'remember_token'
     ];
+    public $timestamps = false;
 }

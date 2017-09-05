@@ -18,14 +18,34 @@ class ProductsController extends Controller
     public function index()
     {
 
-        $cat = Input::get('cat');
+       /* $cat = Input::get('cat');
         if(!isset($cat)){
-            $product = Product::with('category')->get();
-            return response()->json($product);
+            $products = Product::with('category')->get();
+
         }else{
-            $product = Product::with('category')->whereRaw('category_id = ' . $cat)->get();
-            return response()->json($product);
-        }
+            $products = Product::with('category')->whereRaw('category_id = ' . $cat)->get();
+        }*/
+        /*$products = DB::table('products')
+        ->join('categories as c1' , 'products.category_id' , '=' , 'c1.id')
+        ->join('categories as c2' , 'c1.parent_id' , '=' , 'c2.id')
+        ->selectRaw('products.* , c1.id, c1.name as catName, c2.name as parentName')
+        ->get();*/
+    $products = DB::table('products')
+        ->join('categories as c1' , 'products.category_id' , '=' , 'c1.id')
+        ->join('categories as c2' , 'c1.parent_id' , '=' , 'c2.id')
+        ->selectRaw('products.* , c1.id, c1.name as catName, c2.name as parentName')
+        ->get();
+    $id = [];
+    foreach ($products as $product){
+        array_push($id, $product->id);
+    }
+        $productsNoCat = DB::table('products')->whereRaw('products.id NOT IN (\'' . implode($id , '\' , \'') . '\')')
+            ->join('categories' , 'products.category_id' , '=' , 'categories.id')
+            ->selectRaw('products.* , categories.name as catName')
+            ->get();
+
+        //dd(compact('products','productsNoCat'));
+        return response()->json(compact('products','productsNoCat'));
 
     }
 

@@ -21,11 +21,13 @@ class HomeController extends Controller
         $sales = Bill::whereRaw('created_at between "'. Carbon::yesterday()->toDateString() . '" and  "' . Carbon::tomorrow()->toDateString() . '"'  )->count();
         $cash = DB::table('bills')->select(DB::raw('sum(total) AS montant'))->whereRaw('created_at between "' . Carbon::yesterday()->toDateString() . '" and  "' . Carbon::tomorrow()->toDateString() . '"' )->get();
         $tre = (array)$cash[0];
+        $value_inv = DB::table('products')->selectRaw('SUM(selling_price * qty) as value_inv')->get();
+        $val = $value_inv[0]->value_inv;
         $cashmade = array_pop($tre);
         if($cashmade == null){
             $cashmade = 0;
         }
-        $test = ['newCustomers' => $customer, 'NumberTransaction' => $sales, 'CashMade' => $cashmade];
+        $test = ['value_inv' => $val, 'NumberTransaction' => $sales, 'CashMade' => $cashmade];
         return response()->json($test);
     }
 
