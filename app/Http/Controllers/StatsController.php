@@ -115,14 +115,14 @@ class StatsController extends Controller
             ->selectRaw('CONCAT_WS(\' \',customers.firstname,customers.lastname) as custName ,               
                  bills.total, customers.credits, bills.id, bills.created_at')
             ->whereRaw('customers.id = ' . $customerId . ' and bills.type = \'CR\'')
-            ->groupBy('trades.id')
+            ->groupBy('bills.id')
             ->get();
 
         $stats = ['DailyReport' => $DailyReport, 'inventaireNeuf' => $inventaireNeuf, 'venteClient' => $venteClient,
             '$dailyReports' => $dailyreports , 'CreditClient' => $CreditClient];
 
-        return response()->json($stats);
-
+       // return response()->json($stats);
+        return response()->json($inventaire);
         #Rapport sur les credits d'un client (p-t rajouter l'employer qui as approuver)
        /* return response()->json($DailyReport); #Rapport detailler journalier sur excel
         return response()->json($inventaireNeuf); #Stats valeur inventaire

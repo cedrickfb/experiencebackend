@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,12 @@ class BillsController extends Controller
             ->join('settings' , 'settings.id' , '=' , 'bills.company_id')
             ->selectRaw('bills.* ,  CONCAT_WS(\' \',customers.firstname,customers.lastname) as CustName ,
             CONCAT_WS(\' \',employees.firstname,employees.lastname) as EmpName')
+            ->whereRaw('settings.active = 1')
             ->get();
+      /* $billDetail = DB::table('bills')
+           ->join('employees' , 'bills.employees_id' , '=' , 'employees.id')
+           ->selectRaw('bills.*')
+           ->get();*/
         return response()->json($billDetail);
     }
 
@@ -42,7 +48,11 @@ class BillsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $bill = new Bill($request->all());
+        $bill->save();
+
+        return response()->json($bill['id']);
     }
 
     /**
@@ -64,7 +74,8 @@ class BillsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bill = Bill::findOrFail($id);
+        return response()->json($bill);
     }
 
     /**

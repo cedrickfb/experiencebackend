@@ -25,18 +25,17 @@ class EditCustomerRequest extends FormRequest
     {
 
         return [
-            'firstname' => 'required|max:50|anyname',
-            'lastname' => 'required|max:50|anyname',
-            'tel_prefix' => 'required|min:100|max:999|numeric',
-            'telephone' => 'required|min:7|max:7',
+            'firstname' => 'max:50|anyname',
+            'lastname' => 'max:50|anyname',
+            'tel_prefix' => 'min:100|max:999|numeric',
+            'telephone' => 'min:7|max:7',
             /*'address' => 'required',
             'city' => 'required',
             'province' => 'required',
             'country' => 'required',*/
-            'postal_code' => 'required|min:6|max:6|zipCode',
+            'postal_code' => 'max:6',
             'comments' => 'max:500',
-            'password' => 'required|max:25',
-            'credits' => 'required',
+            'password' => 'max:25',
         ];
     }
 }
