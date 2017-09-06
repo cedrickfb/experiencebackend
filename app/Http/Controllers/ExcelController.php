@@ -23,11 +23,7 @@ class ExcelController extends Controller
     public function index(Request $request,Closure $next)
     {
 
-        $start = Input::get('start');
-        $end = Input::get('end');
-        dd($start,$end);
-
-       $excel =  \Maatwebsite\Excel\Facades\Excel::load('Valeur_inventaire_cat.xls', function($file) {
+        \Maatwebsite\Excel\Facades\Excel::load('Valeur_inventaire_cat.xls', function($file) {
 
            $file->sheet('Feuil1' , function($sheet){
               $sheet->setCellValue('A1' , 'Date :' . Carbon::today()->toDateString());

@@ -32,7 +32,7 @@ class EditSettingsRequest extends FormRequest
             'city' => 'required|max:50',
             'province' => 'required|max:50',
             'country' => 'required|max:50',
-            'postal_code' => 'required|max:6|zipCode',
+            'postal_code' => 'required|max:6|zipCode|min:6',
             'telephone' => 'required|numeric',
             'fax' => 'required|max:50',
             'email' => 'required|max:80|email',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Maatwebsite\Excel\Excel;
 
 class SellingsController extends Controller
@@ -16,12 +17,18 @@ class SellingsController extends Controller
      */
     public function index()
     {
+
+
          \Maatwebsite\Excel\Facades\Excel::load('ventes_detaillees.xls', function($file) {
 
 
             $file->sheet('Feuil1' , function($sellingsSheet){
+                $start = Input::get('start');
+                $end = Input::get('end');
                 $sellingsSheet->setCellValue('A1' , 'Date :' . Carbon::today()->toDateString());
+                $sellingsSheet->setCellValue('A2', 'Ventes du ' . $start . ' au ' . $end);
 
+              // dd($end,$start);
                 $sales = DB::table('bills')
                     ->leftjoin('bills_details' , 'bills.id' , '=' ,'bills_details.bill_id')
                     ->join('products' , 'bills_details.products_id', '=' , 'products.id')
@@ -29,7 +36,7 @@ class SellingsController extends Controller
                     ->selectRaw('c1.name as catName , products.codebar,
                      products.name as prodName, c1.id as catId, c1.parent_id as catParent, products.selling_price, bills_details.discount,
                      bills_details.qty, bills.total')
-                    ->whereRaw('bills.type = \'F\'')
+                    ->whereRaw('bills.type = \'F\' and bills.created_at between \'' . $start . '\' and \'' . $end . '\'' )
                     ->get();
 
                 $categories = DB::table('bills')
