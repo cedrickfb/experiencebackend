@@ -4,79 +4,28 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Maatwebsite\Excel\Excel;
+use Mockery\Matcher\Closure;
 
 class ExcelController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param Closure $next
      * @return \Illuminate\Http\Response
+
      */
-    public function index()
+    public function index(Request $request,Closure $next)
     {
 
-
-       /* $inventaireNeuf = DB::table('products')
-            ->join('categories', 'products.category_id' , '=' , 'categories.id')
-            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant ,
-            SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
-            ->whereRaw('products.used = 0')
-            ->groupBy('products.category_id')->get();
-        $inventaireUsager = DB::table('products')
-            ->join('categories', 'products.category_id' , '=' , 'categories.id')
-            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant ,
-             SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
-            ->whereRaw('products.used = 1')
-            ->groupBy('products.category_id')->get();
-        $inventaireTotal = DB::table('products')
-            ->join('categories', 'products.category_id' , '=' , 'categories.id')
-            ->selectRaw('SUM(products.qty * products.selling_price) as neuf_vendant ,
-            SUM(products.qty * products.original_cost) as neuf_coutant, categories.name as category_name')
-            ->groupBy('products.category_id')->get();
-
-        $inventaire = ['Neuf' => $inventaireNeuf, 'Usager' => $inventaireUsager, 'Total' => $inventaireTotal];*/  #ancienne request
-       /*\Maatwebsite\Excel\Facades\Excel::create('asdfas', function($excel){
-           $excel->setTitle('Valeur_inventaire_cat');
-
-           $excel->setDescription('Valeur de l\'inventaire par catégories');
-
-           $excel->sheet('Feuil1', function($sheet) {
-
-
-
-           });
-
-       })->download('xls');*/
-
-       /*$inventaireNeuf = DB::table('products')
-           ->join('categories' , 'products.category_id' , '=' , 'categories.id')
-           ->selectRaw('categories.id , categories.name , SUM(products.selling_price) as neuf_vendant , SUM(products.original_cost) as neuf_coutant')
-           ->whereRaw('products.used != 1')
-           ->groupBy('products.category_id')
-           ->get();
-        $inventaireUsager = DB::table('products')
-            ->join('categories' , 'products.category_id' , '=' , 'categories.id')
-            ->selectRaw('categories.id, categories.name , SUM(products.selling_price) as used_vendant , SUM(products.original_cost) as used_coutant')
-            ->whereRaw('products.used = 1')
-            ->groupBy('products.category_id')
-            ->get();
-       //dd($inventaireUsager);
-        $tableNeuf[] = $inventaireNeuf;
-        $tableUsed[] = $inventaireUsager;
-        $table = array_merge($tableNeuf,$tableUsed);
-        dd($table);
-        foreach ($tableNeuf as $item){
-           if(in_array($item , $tableUsed)){
-            $table = array_merge($tableNeuf,$tableUsed);
-            dd($table);
-           }else{
-
-           }
-        }*/
-
-
+        $start = Input::get('start');
+        $end = Input::get('end');
+        dd($start,$end);
 
        $excel =  \Maatwebsite\Excel\Facades\Excel::load('Valeur_inventaire_cat.xls', function($file) {
 

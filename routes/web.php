@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api' ], function() {
     Route::resource('login' , 'LoginController');
     Route::post('notifications/truncate' , 'NotificationsController@truncate');
     Route::resource('excel' , 'ExcelController');
+    Route::resource('sellings' , 'SellingsController');
 });
 
 Route::get('/', function () {
