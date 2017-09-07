@@ -17,7 +17,6 @@ class MessagesController extends Controller
      */
     public function index(Request $request)
     {
-        
         $message = Message::first();
         return response()->json($message);
     }
